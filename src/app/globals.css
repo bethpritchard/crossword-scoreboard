@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: "press-start";
-    src: url("../../public/assets/fonts/PressStart2P-Regular.ttf");
+	font-family: "press-start";
+	src: url("../../public/assets/fonts/PressStart2P-Regular.ttf");
 }

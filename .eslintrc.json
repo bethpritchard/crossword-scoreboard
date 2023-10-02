@@ -1,3 +1,14 @@
 {
-  "extends": "next/core-web-vitals"
+	"extends": [
+		"next/core-web-vitals",
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"prettier"
+	],
+	"plugins": ["react"],
+	"rules": {
+		"indent": ["warn", "tab"],
+		"quotes": ["error", "double"],
+		"semi": ["error", "always"]
+	}
 }

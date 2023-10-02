@@ -1,16 +1,18 @@
+import React from "react";
+
 import "./globals.css";
 
 export default function RootLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  return (
-    <html lang="en" className="min-h-screen bg-zinc-900">
-      <head>
-        <title>Crossword Scoreboard</title>
-      </head>
-      <body className="w-full h-full text-white">{children}</body>
-    </html>
-  );
+	return (
+		<html lang="en" className="min-h-screen bg-zinc-900">
+			<head>
+				<title>Crossword Scoreboard</title>
+			</head>
+			<body className="w-full h-full text-white">{children}</body>
+		</html>
+	);
 }
