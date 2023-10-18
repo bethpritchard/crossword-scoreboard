@@ -5,30 +5,37 @@ import { useEffect, useState } from "react";
 import { ScoreButton } from "./components/scoreButton";
 import { INITIAL_SCORE_STATE, Score } from "./types";
 import { B_KEY, CHLO_KEY } from "./constants";
-import { getScore, storeScore } from "./utils";
+import { downloadFile, uploadFile } from "./api/aws/api";
+
+const KEY = "scores";
 
 export default function Home() {
 	const [score, setScore] = useState<Score>(INITIAL_SCORE_STATE);
 	const [isLoading, setIsLoading] = useState(true);
 
+	const downloadScore = async () => {
+		const downloadedScore = await downloadFile(KEY);
+
+		if (downloadedScore !== null) {
+			setScore(downloadedScore);
+		}
+	};
 	useEffect(() => {
-		getScore()
-			.then((retrievedScore?: Score) => {
-				setScore(retrievedScore ?? INITIAL_SCORE_STATE);
-			})
-			.finally(() => {
-				setIsLoading(false);
-			});
+		downloadScore().then(() => {
+			setIsLoading(false);
+		});
 	}, []);
 
 	const handleValueChange = (key: keyof Score) => {
 		setScore((prevState: Score) => {
 			const updatedScore = { ...prevState, [key]: prevState[key] + 1 };
 
-			storeScore(updatedScore);
-
 			return updatedScore;
 		});
+	};
+
+	const uploadScore = () => {
+		uploadFile(KEY, score);
 	};
 
 	if (isLoading) {
@@ -62,11 +69,11 @@ export default function Home() {
 					</div>
 				</div>
 				<div className="flex space-x-4 justify-center">
-					<button className="w-20 md:w-40  bg-pink-400 hover:bg-pink-500 text-white  h-12 text-lg rounded">
-						Submit
-					</button>
-					<button className="w-20 md:w-40  bg-pink-400 hover:bg-pink-500 text-white  h-12 text-lg rounded">
-						Load
+					<button
+						className="w-20 md:w-40  bg-pink-400 hover:bg-pink-500 text-white  h-12 text-lg rounded"
+						onClick={() => uploadScore()}
+					>
+						Save
 					</button>
 				</div>
 			</div>

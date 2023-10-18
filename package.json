@@ -9,13 +9,8 @@
 		"lint": "next lint",
 		"prepare": "husky install"
 	},
-	"lint-staged": {
-		"*.{js,jsx,ts,tsx}": [
-			"npx prettier --write",
-			"npx eslint --fix"
-		]
-	},
 	"dependencies": {
+		"@aws-sdk/client-s3": "^3.423.0",
 		"dexie": "^3.2.4",
 		"eslint-config-prettier": "^9.0.0",
 		"next": "latest",
@@ -29,10 +24,10 @@
 		"autoprefixer": "latest",
 		"eslint": "latest",
 		"eslint-config-next": "latest",
+		"husky": "^8.0.0",
 		"postcss": "latest",
 		"prettier": "^3.0.3",
 		"tailwindcss": "latest",
-		"typescript": "latest",
-		"husky": "^8.0.0"
+		"typescript": "latest"
 	}
 }
