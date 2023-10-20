@@ -9,10 +9,10 @@ const S3_BUCKET = "crossword-scoreboard";
 
 const client = new S3Client({
 	region: "eu-west-2",
-	credentials: {
-		accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID!,
-		secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY!,
-	},
+	// credentials: {
+	// 	accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID!,
+	// 	secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY!,
+	// },
 });
 
 export const uploadFile = async (key: string, body: Score) => {
