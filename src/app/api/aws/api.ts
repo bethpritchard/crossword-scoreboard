@@ -10,8 +10,8 @@ const S3_BUCKET = "crossword-scoreboard";
 const client = new S3Client({
 	region: "eu-west-2",
 	credentials: {
-		accessKeyId: "nope",
-		secretAccessKey: "no",
+		accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID!,
+		secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY!,
 	},
 });
 
@@ -37,7 +37,6 @@ export const downloadFile = async (key: string) => {
 		Bucket: S3_BUCKET,
 		Key: `${key}.json`,
 	});
-
 	try {
 		const response = await client.send(command);
 		const jsonString = await response.Body?.transformToString();
