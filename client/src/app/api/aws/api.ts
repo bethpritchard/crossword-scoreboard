@@ -1,49 +1,36 @@
 import { Score } from "@/app/types";
-import {
-	GetObjectCommand,
-	PutObjectCommand,
-	S3Client,
-} from "@aws-sdk/client-s3";
+import axios from "axios";
 
-const S3_BUCKET = "crossword-scoreboard";
+const config = {
+	headers: {
+		"Content-Type": "application/json",
+		"X-Api-Key": "UMPTer3i0kayBI9SbtOxo4j2cuK47Z152Jlup8S5",
+	},
+};
 
-const client = new S3Client({
-	region: "eu-west-2",
-	// credentials: {
-	// 	accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID!,
-	// 	secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY!,
-	// },
-});
+const UPLOAD_URL =
+	"https://pmzry43wxh.execute-api.eu-west-2.amazonaws.com/v1/upload";
 
-export const uploadFile = async (key: string, body: Score) => {
-	const params = {
-		Bucket: S3_BUCKET,
-		Key: `${key}.json`,
-		Body: JSON.stringify(body),
-		ContentType: "application/json; charset=utf-8",
-	};
-	client
-		.send(new PutObjectCommand(params))
-		.then(() => {
-			console.log("Form uploaded successfully.");
+const DOWNLOAD_URL =
+	"https://pmzry43wxh.execute-api.eu-west-2.amazonaws.com/v1/download";
+
+export const uploadFile = async (body: Score) => {
+	axios
+		.post(UPLOAD_URL, JSON.stringify(body), config)
+		.then((response) => {
+			console.log(response);
 		})
 		.catch((error) => {
 			console.log(error);
 		});
 };
 
-export const downloadFile = async (key: string) => {
-	const command = new GetObjectCommand({
-		Bucket: S3_BUCKET,
-		Key: `${key}.json`,
-	});
+export const downloadFile = async () => {
 	try {
-		const response = await client.send(command);
-		const jsonString = await response.Body?.transformToString();
-
-		return JSON.parse(jsonString ?? "");
+		const response = await axios.get(DOWNLOAD_URL, config);
+		return response.data;
 	} catch (error) {
-		console.error("Error downloading file:", error);
-		return null;
+		console.error(error);
+		throw error; // Re-throw the error to handle it at a higher level if needed
 	}
 };

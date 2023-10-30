@@ -12,6 +12,7 @@
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.423.0",
 		"@aws-sdk/credential-providers": "^3.430.0",
+		"axios": "^1.5.1",
 		"dexie": "^3.2.4",
 		"eslint-config-prettier": "^9.0.0",
 		"next": "latest",

@@ -7,17 +7,15 @@ import { INITIAL_SCORE_STATE, Score } from "./types";
 import { B_KEY, CHLO_KEY } from "./constants";
 import { downloadFile, uploadFile } from "./api/aws/api";
 
-const KEY = "scores";
-
 export default function Home() {
 	const [score, setScore] = useState<Score>(INITIAL_SCORE_STATE);
 	const [isLoading, setIsLoading] = useState(true);
 
 	const downloadScore = async () => {
-		const downloadedScore = await downloadFile(KEY);
+		const downloadedScore = await downloadFile();
 
 		if (downloadedScore !== null) {
-			setScore(downloadedScore);
+			setScore(downloadedScore!);
 		}
 	};
 	useEffect(() => {
@@ -35,7 +33,7 @@ export default function Home() {
 	};
 
 	const uploadScore = () => {
-		uploadFile(KEY, score);
+		uploadFile(score);
 	};
 
 	if (isLoading) {
