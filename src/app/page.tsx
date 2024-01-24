@@ -24,9 +24,10 @@ export default function Home() {
 		});
 	}, []);
 
-	const handleValueChange = (key: keyof Score) => {
+	const handleValueChange = (key: keyof Score, direction) => {
 		setScore((prevState: Score) => {
-			const updatedScore = { ...prevState, [key]: prevState[key] + 1 };
+			const modifier = direction === "up" ? 1 : -1;
+			const updatedScore = { ...prevState, [key]: prevState[key] + modifier };
 
 			return updatedScore;
 		});
@@ -53,16 +54,27 @@ export default function Home() {
 				<div className="flex justify-center space-x-4 mb-10">
 					<div className="flex flex-col items-center">
 						<div className="mb-10">{score[CHLO_KEY]}</div>
+						<h1> Chloe</h1>
+						<div> </div>
 						<ScoreButton
-							name={CHLO_KEY}
-							onChange={() => handleValueChange(CHLO_KEY)}
+							name={"+"}
+							onChange={() => handleValueChange(CHLO_KEY, "up")}
+						/>
+						<ScoreButton
+							name={"-"}
+							onChange={() => handleValueChange(CHLO_KEY, "down")}
 						/>
 					</div>
 					<div className="flex flex-col items-center">
 						<div className="mb-10">{score[B_KEY]}</div>
+						<h1> B </h1>
 						<ScoreButton
-							name={B_KEY}
-							onChange={() => handleValueChange(B_KEY)}
+							name={"-"}
+							onChange={() => handleValueChange(B_KEY, "up")}
+						/>
+						<ScoreButton
+							name={"-"}
+							onChange={() => handleValueChange(B_KEY, "down")}
 						/>
 					</div>
 				</div>

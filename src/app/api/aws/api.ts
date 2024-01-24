@@ -8,15 +8,11 @@ const config = {
 	},
 };
 
-const UPLOAD_URL =
-	"https://pmzry43wxh.execute-api.eu-west-2.amazonaws.com/v1/upload";
-
-const DOWNLOAD_URL =
-	"https://pmzry43wxh.execute-api.eu-west-2.amazonaws.com/v1/download";
+const URL = "https://pmzry43wxh.execute-api.eu-west-2.amazonaws.com/v1";
 
 export const uploadFile = async (body: Score) => {
 	axios
-		.post(UPLOAD_URL, JSON.stringify(body), config)
+		.post(`${URL}/upload`, JSON.stringify(body), config)
 		.then((response) => {
 			console.log(response);
 		})
@@ -27,10 +23,10 @@ export const uploadFile = async (body: Score) => {
 
 export const downloadFile = async () => {
 	try {
-		const response = await axios.get(DOWNLOAD_URL, config);
-		return response.data;
+		const response = await axios.get(`${URL}/download`, config);
+		return response.data as Score;
 	} catch (error) {
 		console.error(error);
-		throw error; // Re-throw the error to handle it at a higher level if needed
+		throw error;
 	}
 };

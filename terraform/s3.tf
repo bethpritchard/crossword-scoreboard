@@ -41,7 +41,11 @@ resource "aws_s3_bucket_policy" "crossword_scoreboard" {
       {
           "Sid": "PublicReadGetObject",
           "Effect": "Allow",
-          "Principal": "*",
+        "Principal": {
+          "AWS": [
+            "arn:aws:iam::142670792804:role/crosswordAPIRole"
+          ]
+        }
           "Action": [
               "s3:GetObject"
           ],
